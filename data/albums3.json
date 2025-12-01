@@ -1,6 +1,7 @@
 [
-  {
-    "name": "IceDrive ชุด 1",
-    "url": "https://icedrive.net/0/ExampleFolder1"
-  }
+  {"name": "พระบาง", "url": "https://photos.google.com/album/AF1QipMgGZus8tWqhsdzKafr6MiJLaOv5YnsCORlaK2v", "audio":"audio/1.mp3"},
+  {"name": "พระกรุวัดเงินคลองเตย", "url": "https://photos.google.com/album/AF1QipM7giviCXnOuwZNjFN2Fm8ebUZNSbhSCfk-iTeQ", "audio":"audio/2.mp3"},
+  {"name": "เม็ดขนุน", "url": "https://photos.google.com/album/AF1QipNfX0xpUR1ITOb5DmCJgy3Heox-44B3u6OGbMSY", "audio":"audio/3.mp3"},
+  {"name": "พระคงลำพูน", "url": "https://photos.google.com/album/AF1QipNcGynlbhXELK0_6OA0F7Yiv91I3T-4-lUax_b5", "audio":"audio/4.mp3"},
+  {"name": "พระรอดพิมพ์กลาง", "url": "https://photos.google.com/album/AF1QipO2Tb05HmAkuL2p7ohQ6VvdDGOsq8E3tZwlFIFb", "audio":"audio/5.mp3"}
 ]
