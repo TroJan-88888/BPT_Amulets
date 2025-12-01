@@ -1,61 +1,48 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Admin — เพิ่มอัลบั้ม</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📸 BPT Amulets - Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <button class="dark-toggle" id="darkToggle">🌙 / ☀️</button>
+<button class="dark-toggle" onclick="toggleDarkMode()">🌙/☀️</button>
+<div class="container">
+  <h1>Admin Panel</h1>
+  <input type="text" id="albumName" placeholder="ชื่ออัลบั้ม">
+  <input type="url" id="albumUrl" placeholder="ลิงก์อัลบั้ม">
+  <input type="url" id="albumAudio" placeholder="ลิงก์ไฟล์เสียง (mp3)">
+  <select id="targetJson">
+    <option value="data/albums1.json">albums1.json</option>
+    <option value="data/albums2.json">albums2.json</option>
+    <option value="data/albums3.json">albums3.json</option>
+    <option value="data/albums4.json">albums4.json</option>
+    <option value="data/albums5.json">albums5.json</option>
+  </select>
+  <input type="text" id="ghUser" placeholder="GitHub Username">
+  <input type="text" id="ghRepo" placeholder="Repository Name">
+  <input type="text" id="ghBranch" placeholder="Branch (default: main)">
+  <input type="password" id="ghToken" placeholder="Personal Access Token">
+  <button id="saveBtn">บันทึกขึ้น GitHub</button>
+  <p id="status"></p>
 
-  <div class="container">
-    <h2>Admin — เพิ่ม / แก้ไขอัลบั้ม</h2>
-
-    <div class="admin-form">
-      <label>ชื่ออัลบั้ม</label>
-      <input id="albumName" placeholder="เช่น พระรอด ลำพูน">
-
-      <label>ลิงก์อัลบั้ม (Google Photos/MEGA/IceDrive)</label>
-      <input id="albumUrl" placeholder="https://...">
-
-      <label>ไฟล์ JSON เป้าหมาย</label>
-      <select id="targetJson">
-        <option value="data/albums1.json">albums1.json</option>
-        <option value="data/albums2.json">albums2.json</option>
-        <option value="data/albums3.json">albums3.json</option>
-        <option value="data/albums4.json">albums4.json</option>
-        <option value="data/albums5.json">albums5.json</option>
-      </select>
-
-      <label>พาธไฟล์เสียง (ถ้ามี)</label>
-      <input id="audioPath" placeholder="เช่น assets/audio/chiangmai.mp3 (ไม่จำเป็น)">
-
-      <hr>
-
-      <label>GitHub Username</label>
-      <input id="ghUser" placeholder="username">
-
-      <label>Repository</label>
-      <input id="ghRepo" placeholder="repo-name">
-
-      <label>Branch</label>
-      <input id="ghBranch" value="main">
-
-      <label>Personal Access Token (เก็บเป็นความลับ)</label>
-      <input id="ghToken" type="password" placeholder="ghp_xxx...">
-
-      <button id="saveBtn" class="button">บันทึกขึ้น GitHub</button>
-      <p id="status" class="status"></p>
-    </div>
-
-    <div style="text-align:center; margin-top:12px;">
-      <a href="index.html" class="button">← กลับสู่หน้าแรก</a>
-    </div>
+  <div class="links">
+    <a href="index.html">หน้าแรก</a>
+    <a href="google.html">Google Photos Albums</a>
+    <a href="mega.html">MEGA Albums</a>
+    <a href="icedrive.html">IceDrive Albums</a>
   </div>
-
-  <script src="js/admin.js"></script>
-  <script src="js/app.js"></script>
+</div>
+<button id="voiceSearchBtn">🎤 ค้นหาด้วยเสียง</button>
+<script src="js/admin.js"></script>
+<script>
+function toggleDarkMode(){
+  document.body.classList.toggle('light');
+  localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+}
+window.onload = () => { if(localStorage.getItem('theme')==='light') document.body.classList.add('light'); };
+</script>
 </body>
 </html>
