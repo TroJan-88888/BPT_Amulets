@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TrojanAI Tron Cyber Hologram</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffe0;
+            --secondary: #00aaff;
+            --accent: #ff00ff;
+            --danger: #ff4444;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --bg-dark: rgba(10, 10, 20, 0.95);
+            --card-bg: rgba(0, 0, 0, 0.5);
+            --text-glow: 0 0 12px #00ffe0;
+            --neon-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0, 0 0 30px #00ffe0;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+            background: #0a0a14;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-y: auto;
+            touch-action: manipulation;
+        }
+
+        /* ปรับปรุงสำหรับ Android */
+        input, textarea, select {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
+        /* Background Canvas */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Main Container */
+        .cyber-interface {
+            width: 100%;
+            max-width: 1200px;
+            min-height: 100vh;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            padding: clamp(12px, 3vw, 28px);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header Section */
+        .interface-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: clamp(12px, 3vw, 30px);
+            text-align: center;
+        }
+
+        .header-logo {
+            width: clamp(80px, 12vw, 130px);
+            height: clamp(80px, 12vw, 130px);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #0ff;
+            animation: pulse 1.8s infinite alternate;
+            border: 2px solid var(--primary);
+            object-fit: cover;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 25px #0ff; }
+            100% { transform: scale(1.12); box-shadow: 0 0 90px cyan, 0 0 120px var(--accent); }
+        }
+
+        .header-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            text-shadow: var(--text-glow);
+            margin: 12px 0;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Tab Navigation - ปรับปรุงสำหรับมือถือ */
+        .tab-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: space-between;
+            margin-bottom: clamp(12px, 2.5vw, 25px);
+            background: rgba(0, 0, 0, 0.32);
+            border-radius: 20px;
+            padding: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.12);
+        }
+
+        .tab-item {
+            padding: clamp(10px, 1.5vw, 16px) clamp(12px, 2vw, 24px);
+            border-radius: 15px;
+            cursor: pointer;
+            background: rgba(0, 255, 255, 0.12);
+            transition: transform 0.2s ease, background 0.2s ease;
+            flex: 1 1 auto;
+            text-align: center;
+            margin: 0 2px;
+            font-weight: 500;
+            border: 1px solid transparent;
+            min-width: 0;
+            font-size: clamp(12px, 2.5vw, 14px);
+            touch-action: manipulation;
+        }
+
+        .tab-item:active { 
+            transform: scale(0.95); 
+            background: rgba(0,255,255,0.18); 
+        }
+
+        .tab-item.active {
+            background: rgba(0, 255, 255, 0.72);
+            color: black;
+            font-weight: 700;
+            box-shadow: var(--neon-shadow);
+            border: 1px solid var(--primary);
+        }
+
+        /* Main content area */
+        .interface-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        /* Card components */
+        .cyber-card {
+            width: 100%;
+            background: var(--card-bg);
+            padding: clamp(12px, 2.5vw, 25px);
+            border-radius: 18px;
+            box-shadow: 0 15px 60px rgba(0, 255, 255, 0.18);
+            backdrop-filter: blur(16px);
+            margin-bottom: clamp(12px, 2.5vw, 25px);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            border: 1px solid rgba(0, 255, 255, 0.12);
+            position: relative;
+            overflow: visible;
+        }
+
+        .cyber-card:active { 
+            transform: translateY(-2px); 
+            box-shadow: 0 24px 80px rgba(0,255,255,0.22); 
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+            margin-bottom: 12px;
+            text-align: center;
+            color: var(--primary);
+            text-shadow: var(--text-glow);
+        }
+
+        /* Command Grid */
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 14px;
+        }
+
+        /* Buttons - ปรับปรุงสำหรับมือถือ */
+        .cyber-button {
+            padding: clamp(12px, 3vw, 16px) clamp(12px, 3vw, 20px);
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: white;
+            font-size: clamp(14px, 3vw, 16px);
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.12);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            white-space: nowrap;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            touch-action: manipulation;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cyber-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 10px 30px rgba(0,255,255,0.16);
+        }
+
+        .cyber-button.danger { background: linear-gradient(45deg, var(--danger), #ff0066); }
+        .cyber-button.success { background: linear-gradient(45deg, var(--success), #00cc66); }
+        .cyber-button.accent { background: linear-gradient(45deg, var(--accent), #cc00ff); }
+        .cyber-button.warning { background: linear-gradient(45deg, var(--warning), #ff7700); }
+
+        /* Status & logs */
+        .status-container { width: 100%; margin-top: 12px; }
+        .status-box, .log-box {
+            max-height: clamp(140px, 28vh, 260px);
+            overflow-y: auto;
+            padding: 12px;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.06);
+            border-radius: 10px;
+            margin-top: 10px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.24);
+            font-size: clamp(12px, 1.8vw, 14px);
+            border: 1px solid rgba(0, 255, 255, 0.08);
+        }
+
+        /* Loading */
+        .loading {
+            width: 18px; height: 18px;
+            border: 2px solid rgba(255,255,255,0.18);
+            border-top: 2px solid cyan;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* System stats grid responsive */
+        .system-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .stat-card {
+            background: rgba(0, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 255, 0.06);
+            transition: transform 0.18s ease;
+        }
+
+        .stat-card:active { transform: translateY(-3px); }
+
+        .stat-value { font-size: clamp(1rem, 2.5vw, 1.5rem); font-weight: 700; color: var(--primary); margin: 6px 0; }
+
+        /* Progress bars */
+        .progress-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 6px; margin-top: 8px; overflow: hidden; position: relative; }
+        .progress { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 6px; transition: width 0.45s ease; position: relative; }
+
+        .progress::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); animation: shimmer 2s infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+        /* Emergency panel */
+        .emergency-panel { background: rgba(255,0,0,0.06); border: 1px solid var(--danger); border-radius: 12px; padding: 14px; margin-top: 12px; width: 100%; position: relative; }
+
+        .emergency-panel::before { content: '🚨'; position: absolute; top: -12px; left: 14px; font-size: 1.25rem; background: var(--bg-dark); padding: 0 8px; }
+
+        /* Voice controls */
+        .voice-controls { display: flex; gap: 10px; margin-bottom: 12px; width: 100%; flex-wrap: wrap; }
+        .voice-controls .cyber-button { flex: 1 1 auto; min-width: 120px; }
+
+        /* Log entries */
+        .log-entry { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); font-family: 'Courier New', monospace; font-size: clamp(11px, 1.8vw, 13px); transition: background 0.18s; }
+        .log-entry:active { background: rgba(0,255,255,0.03); }
+        .log-entry.success { color: var(--success); border-left: 3px solid var(--success); }
+        .log-entry.error { color: var(--danger); border-left: 3px solid var(--danger); }
+        .log-entry.warning { color: var(--warning); border-left: 3px solid var(--warning); }
+        .log-entry.info { color: var(--primary); border-left: 3px solid var(--primary); }
+
+        /* Visualization canvas - responsive */
+        #vizCanvas {
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            width: 100%;
+            height: 160px;
+            border: 1px solid rgba(0, 255, 255, 0.08);
+            display: block;
+        }
+
+        #aiFace {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: clamp(80px, 12vw, 120px);
+            height: clamp(80px, 12vw, 120px);
+            z-index: 22;
+            pointer-events: none;
+            transition: transform 0.06s ease;
+            filter: drop-shadow(0 0 10px cyan);
+        }
+
+        /* Floating text */
+        .floatingText {
+            position: absolute;
+            color: #0ff;
+            font-weight: bold;
+            text-shadow: 0 0 8px #0ff;
+            pointer-events: none;
+            animation: floatUp 2s ease-out forwards;
+            font-family: 'Orbitron', sans-serif;
+            z-index: 100;
+            font-size: clamp(12px, 2vw, 16px);
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-80px) scale(1.12); }
+        }
+
+        /* Footer */
+        .interface-footer {
+            width: 100%;
+            text-align: center;
+            font-size: clamp(12px, 2vw, 14px);
+            margin-top: 12px;
+            opacity: 0.95;
+            text-shadow: 0 0 8px cyan;
+            padding: 12px;
+            border-top: 1px solid rgba(0, 255, 255, 0.06);
+        }
+
+        .connection-status { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--success); margin-right: 8px; animation: pulse 2s infinite; }
+
+        /* Utilities */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .mb-15 { margin-bottom: 15px; }
+        .mt-15 { margin-top: 15px; }
+
+        /* Android-specific optimizations */
+        .android-notice {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid var(--danger);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .android-notice h3 {
+            color: var(--danger);
+            margin-bottom: 8px;
+        }
+
+        /* Responsive adjustments สำหรับ Android */
+        @media (max-width: 900px) {
+            #vizCanvas { height: 140px; }
+        }
+
+        @media (max-width: 600px) {
+            .command-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+            .tab-item { min-width: 0; font-size: 13px; padding: 10px 8px; }
+            .cyber-card { padding: 12px; border-radius: 12px; }
+            #vizCanvas { height: 120px; }
+            .header-title { font-size: clamp(1.2rem, 5.5vw, 1.8rem); }
+            .cyber-button { min-height: 44px; }
+        }
+
+        @media (max-width: 420px) {
+            .command-grid { grid-template-columns: 1fr; }
+            .voice-controls { flex-direction: column; }
+            #vizCanvas { height: 100px; }
+            .header-logo { width: 84px; height: 84px; }
+            .tab-navigation { flex-direction: column; }
+            .tab-item { margin-bottom: 5px; }
+        }
+
+        /* Scrollbar small customization */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.14); border-radius: 6px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary), var(--secondary)); border-radius: 6px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(var(--secondary), var(--primary)); }
+    </style>
+</head>
+<body>
+    <!-- Background Canvas for Particles -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Main Interface Container -->
+    <div class="cyber-interface">
+        <!-- Header Section -->
+        <header class="interface-header">
+            <img src="https://od.lk/s/N18yNzAwOTQ0NzZf/17.gif" alt="TrojanAI Logo" class="header-logo">
+            <h1 class="header-title">🧠 TrojanAI Tron Cyber Hologram</h1>
+        </header>
+
+        <!-- Android Notice -->
+        <div class="android-notice">
+            <h3>📱 โหมด Android</h3>
+            <p>แอปพลิเคชันนี้ได้รับการปรับปรุงให้ใช้งานได้ดีบนอุปกรณ์ Android</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-navigation">
+            <div class="tab-item active" onclick="showTab('commands')">🚀 คำสั่งหลัก</div>
+            <div class="tab-item" onclick="showTab('voice')">🎤 ควบคุมด้วยเสียง</div>
+            <div class="tab-item" onclick="showTab('dashboard')">📊 แดชบอร์ดระบบ</div>
+            <div class="tab-item" onclick="showTab('aiViz')">🎧 AI Visualizer</div>
+            <div class="tab-item" onclick="showTab('history')">📋 ประวัติคำสั่ง</div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="interface-main">
+            <!-- Commands Tab -->
+            <section id="commands" class="cyber-card">
+                <h2 class="card-title">🚀 คำสั่งระบบหลัก</h2>
+                <h3 class="mb-15" style="color: var(--accent);">🛠️ เครื่องมือสร้างสรรค์</h3>
+                <div class="command-grid">
+                    <button class="cyber-button" onclick="sendCommand('แต่งรูป')">🖌️ Photoshop</button>
+                    <button class="cyber-button" onclick="sendCommand('สร้างแอป')">💻 Android Studio</button>
+                    <button class="cyber-button" onclick="sendCommand('ขอโค้ด')">💾 เปิดโค้ด</button>
+                    <button class="cyber-button" onclick="sendCommand('สร้างไฟล์ใหม่')">📝 สร้างไฟล์</button>
+                </div>
+
+                <h3 class="mb-15" style="color: var(--accent);">🎬 ความบันเทิง</h3>
+                <div class="command-grid">
+                    <button class="cyber-button" onclick="sendCommand('ดูหนัง')">🎬 ดูหนัง</button>
+                    <button class="cyber-button" onclick="sendCommand('หนังผจญภัย')">🏔️ หนังผจญภัย</button>
+                    <button class="cyber-button" onclick="sendCommand('หนังตลก')">😂 หนังตลก</button>
+                    <button class="cyber-button" onclick="sendCommand('สารคดี')">📚 สารคดี</button>
+                    <button class="cyber-button" onclick="sendCommand('เล่นเกม')">🎮 เล่นเกม</button>
+                </div>
+
+                <h3 class="mb-15" style="color: var(--accent);">🏠 บ้านอัจฉริยะ</h3>
+                <div class="command-grid">
+                    <button class="cyber-button" onclick="sendCommand('เปิดเพลง')">🎹 เพลงเปียโน</button>
+                    <button class="cyber-button" onclick="sendCommand('เปิดเพลงคลาสสิก')">🎼 เพลงคลาสสิก</button>
+                    <button class="cyber-button success" onclick="sendCommand('เปิดพัดลม')">💨 เปิดพัดลม</button>
+                    <button class="cyber-button warning" onclick="sendCommand('ปิดพัดลม')">🛑 ปิดพัดลม</button>
+                    <button class="cyber-button success" onclick="sendCommand('เปิดไฟหน้าคอม')">💡 เปิดไฟ</button>
+                    <button class="cyber-button warning" onclick="sendCommand('ปิดไฟหน้าคอม')">🔌 ปิดไฟ</button>
+                    <button class="cyber-button accent" onclick="sendCommand('จะสวดมนต์')">📿 เริ่มสวดมนต์</button>
+                    <button class="cyber-button" onclick="sendCommand('สวดมนต์เสร็จแล้ว')">✝️ หยุดสวดมนต์</button>
+                </div>
+
+                <h3 class="mb-15" style="color: var(--accent);">⚡ โหมดอัตโนมัติ</h3>
+                <div class="command-grid">
+                    <button class="cyber-button success" onclick="sendCommand('โหมดทำงาน')">💼 โหมดทำงาน</button>
+                    <button class="cyber-button accent" onclick="sendCommand('โหมดพักผ่อน')">😌 โหมดพักผ่อน</button>
+                    <button class="cyber-button" onclick="sendCommand('เล่นเปียโนให้ฟังหน่อย')">🎹 เล่นเปียโน</button>
+                    <button class="cyber-button" onclick="sendCommand('เปลี่ยนเพลง')">⏭️ เปลี่ยนเพลง</button>
+                </div>
+
+                <div class="emergency-panel">
+                    <h3 style="color: var(--danger); margin-bottom: 12px;">🚨 ระบบฉุกเฉิน</h3>
+                    <div class="command-grid">
+                        <button class="cyber-button danger" onclick="sendCommand('ปิดโปรแกรม')">🔴 ปิดโปรแกรม</button>
+                        <button class="cyber-button danger" onclick="sendCommand('พอแล้ว')">⛔ หยุดทั้งหมด</button>
+                        <button class="cyber-button accent" onclick="sendCommand('ตรวจสอบระบบ')">🔒 ตรวจสอบระบบ</button>
+                        <button class="cyber-button warning" onclick="sendCommand('รายงานพลังงาน')">📊 รายงานพลังงาน</button>
+                    </div>
+                </div>
+
+                <div class="status-container">
+                    <div id="status" class="status-box">
+                        <div class="log-entry info">สถานะ: พร้อมรับคำสั่ง...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Voice Control Tab -->
+            <section id="voice" class="cyber-card hidden">
+                <h2 class="card-title">🎤 ควบคุมระบบด้วยเสียง</h2>
+                <div class="voice-controls">
+                    <button class="cyber-button success" onclick="sendVoice()">🗣️ พูดตามข้อความ</button>
+                    <button class="cyber-button accent" onclick="startVoiceRecognition()">🎤 สั่งการด้วยเสียง</button>
+                    <button class="cyber-button warning" onclick="stopVoiceRecognition()">⏹️ หยุดฟังเสียง</button>
+                </div>
+
+                <div class="system-stats">
+                    <div class="stat-card">
+                        <div>ระดับเสียง</div>
+                        <div class="stat-value" id="voiceLevel">0%</div>
+                        <div class="progress-bar">
+                            <div class="progress" id="voiceLevelBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div>สถานะไมค์</div>
+                        <div class="stat-value" id="micStatus" style="color: var(--danger);">ปิด</div>
+                        <div>การจดจำเสียง</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>คำสั่งล่าสุด</div>
+                        <div class="stat-value" id="lastCommand" style="font-size: 1rem;">-</div>
+                        <div>เมื่อสักครู่</div>
+                    </div>
+                </div>
+
+                <div id="voiceLog" class="log-box">
+                    <div class="log-entry info">📝 ประวัติคำสั่งเสียง</div>
+                </div>
+            </section>
+
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="cyber-card hidden">
+                <h2 class="card-title">📊 แดชบอร์ดระบบ</h2>
+                <div class="system-stats">
+                    <div class="stat-card">
+                        <div>🕒 เวลาเซิร์ฟเวอร์</div>
+                        <div class="stat-value" id="serverTime">--:--:--</div>
+                        <div>อัพเดทเรียลไทม์</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>🌐 IP เซิร์ฟเวอร์</div>
+                        <div class="stat-value" id="serverIP">192.168.1.33:8080</div>
+                        <div>การเชื่อมต่อ</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>⏱️ เวลาทำงาน</div>
+                        <div class="stat-value" id="uptime">0s</div>
+                        <div>ตั้งแต่เริ่มระบบ</div>
+                    </div>
+                </div>
+
+                <div class="system-stats">
+                    <div class="stat-card">
+                        <div>💻 หน่วยประมวลผล</div>
+                        <div class="stat-value" id="cpuUsage">0%</div>
+                        <div class="progress-bar">
+                            <div class="progress" id="cpuBar" style="width: 0%"></div>
+                        </div>
+                        <div>การใช้งาน CPU</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>🧠 หน่วยความจำ</div>
+                        <div class="stat-value" id="ramUsage">0%</div>
+                        <div class="progress-bar">
+                            <div class="progress" id="ramBar" style="width: 0%"></div>
+                        </div>
+                        <div>การใช้งาน RAM</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>💽 ดิสก์</div>
+                        <div class="stat-value" id="diskUsage">0%</div>
+                        <div class="progress-bar">
+                            <div class="progress" id="diskBar" style="width: 0%"></div>
+                        </div>
+                        <div>พื้นที่จัดเก็บ</div>
+                    </div>
+                </div>
+
+                <div id="sysMonitor" class="log-box">
+                    <div class="log-entry info">📈 กำลังตรวจสอบสถานะระบบ...</div>
+                </div>
+            </section>
+
+            <!-- AI Visualizer Tab -->
+            <section id="aiViz" class="cyber-card hidden" style="position: relative;">
+                <h2 class="card-title">🎧 AI Visualizer & Face Recognition</h2>
+
+                <!-- Responsive canvas -->
+                <canvas id="vizCanvas"></canvas>
+                <img id="aiFace" src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="AI Face">
+
+                <div class="system-stats mt-15">
+                    <div class="stat-card">
+                        <div>เสียงตรวจจับได้</div>
+                        <div class="stat-value" id="audioLevel">0%</div>
+                        <div class="progress-bar">
+                            <div class="progress" id="audioLevelBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div>สถานะใบหน้า</div>
+                        <div class="stat-value" id="faceStatus" style="color: var(--warning);">ไม่พบ</div>
+                        <div>การจดจำใบหน้า</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>อารมณ์</div>
+                        <div class="stat-value" id="emotionStatus" style="color: var(--primary);">ปกติ</div>
+                        <div>การวิเคราะห์อารมณ์</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Command History Tab -->
+            <section id="history" class="cyber-card hidden">
+                <h2 class="card-title">📋 ประวัติคำสั่งล่าสุด</h2>
+                <button class="cyber-button warning" onclick="clearHistory()" style="margin-bottom: 12px;">🧹 ล้างประวัติ</button>
+                <div id="commandHistory" class="log-box">
+                    <div class="log-entry info">กำลังโหลดประวัติคำสั่ง...</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="interface-footer">
+            <span class="connection-status"></span>
+            © 2025 TrojanAI—Hologram Control System |
+            <span id="connectionStatus" style="color: var(--success);">● ออนไลน์</span>
+        </footer>
+    </div>
+
+    <script>
+        // ================== ระบบจัดการแอปพลิเคชัน ==================
+        class TrojanAIApp {
+            constructor() {
+                this.serverIP = "192.168.1.33:8080";
+                this.currentTab = 'commands';
+                this.commandHistory = [];
+                this.isListening = false;
+                this.voiceRecognition = null;
+                this.systemStartTime = Date.now();
+                this.audioContext = null;
+                this.analyser = null;
+                this.particles = [];
+                this.isAndroid = /Android/i.test(navigator.userAgent);
+            }
+
+            async init() {
+                console.log('🚀 เริ่มต้นระบบ TrojanAI Interface...');
+                this.loadCommandHistory();
+                this.initParticles();
+                await this.initAudioSystem();
+                this.startDashboardUpdates();
+                this.startVisualization();
+                console.log('✅ ระบบพร้อมทำงาน!');
+                
+                // แจ้งเตือนสำหรับ Android
+                if (this.isAndroid) {
+                    this.showStatus("📱 โหมด Android: แอปพลิเคชันได้รับการปรับปรุงให้ใช้งานได้ดีบนอุปกรณ์ Android", "info");
+                }
+            }
+
+            showTab(tabId) {
+                document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
+                document.querySelectorAll('.cyber-card').forEach(card => card.classList.add('hidden'));
+                const tabEl = [...document.querySelectorAll('.tab-item')].find(t => t.getAttribute('onclick')?.includes(`'${tabId}'`));
+                if (tabEl) tabEl.classList.add('active');
+                const target = document.getElementById(tabId);
+                if (target) target.classList.remove('hidden');
+                this.currentTab = tabId;
+                this.addToHistory('system', `เปลี่ยนไปแท็บ: ${tabId}`, 'success');
+            }
+
+            async sendCommand(command) {
+                this.showStatus(`กำลังดำเนินการ "${command}"... <span class='loading'></span>`, 'warning');
+                this.addToHistory(command, 'pending', 'กำลังส่งคำสั่ง...');
+                try {
+                    // สำหรับ Android เราใช้ fetch พร้อมกับ timeout
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 วินาที timeout
+                    
+                    const response = await fetch(`http://${this.serverIP}/${encodeURIComponent(command)}`, {
+                        signal: controller.signal
+                    });
+                    clearTimeout(timeoutId);
+                    
+                    const data = await response.text();
+                    this.showStatus(`✅ ${data}`, 'success');
+                    this.addToHistory(command, 'success', data);
+                    this.createFloatingText(command);
+                } catch (error) {
+                    if (error.name === 'AbortError') {
+                        this.showStatus(`❌ การเชื่อมต่อล้มเหลว: เกินเวลาที่กำหนด`, 'error');
+                        this.addToHistory(command, 'error', 'Timeout: การเชื่อมต่อล้มเหลว');
+                    } else {
+                        this.showStatus(`❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์: ${error}`, 'error');
+                        this.addToHistory(command, 'error', error.toString());
+                    }
+                }
+            }
+
+            async sendVoice() {
+                const text = prompt("ใส่ข้อความให้ AI พูด:");
+                if (!text) return;
+                this.showStatus(`🗣️ กำลังพูดว่า "${text}" <span class='loading'></span>`, 'warning');
+                try {
+                    const response = await fetch(`http://${this.serverIP}/พูด/${encodeURIComponent(text)}`);
+                    const data = await response.text();
+                    this.showStatus(`✅ ${data}`, 'success');
+                    this.addToVoiceLog(`พูด: "${text}"`);
+                } catch (error) {
+                    this.showStatus("❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์", 'error');
+                }
+            }
+
+            startVoiceRecognition() {
+                if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+                    this.showStatus("❌ Browser นี้ไม่รองรับการจดจำเสียง", 'error');
+                    return;
+                }
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                this.voiceRecognition = new SpeechRecognition();
+                this.voiceRecognition.lang = 'th-TH';
+                this.voiceRecognition.interimResults = false;
+                this.voiceRecognition.continuous = true;
+                this.voiceRecognition.maxAlternatives = 1;
+
+                this.voiceRecognition.onstart = () => {
+                    this.isListening = true;
+                    document.getElementById('micStatus').textContent = 'กำลังฟัง...';
+                    document.getElementById('micStatus').style.color = 'var(--success)';
+                    this.showStatus("🎤 กำลังฟังเสียง... พูดคำสั่งได้เลย", 'success');
+                };
+
+                this.voiceRecognition.onresult = (event) => {
+                    const command = event.results[event.results.length - 1][0].transcript;
+                    document.getElementById('lastCommand').textContent = command;
+                    this.addToVoiceLog(`ตรวจพบ: "${command}"`);
+                    this.sendCommand(command);
+                };
+
+                this.voiceRecognition.onerror = (event) => {
+                    console.error('Speech recognition error', event.error);
+                    this.showStatus(`❌ เกิดข้อผิดพลาดในการฟังเสียง: ${event.error}`, 'error');
+                    document.getElementById('micStatus').textContent = 'ข้อผิดพลาด';
+                    document.getElementById('micStatus').style.color = 'var(--danger)';
+                };
+
+                this.voiceRecognition.onend = () => {
+                    this.isListening = false;
+                    document.getElementById('micStatus').textContent = 'ปิด';
+                    document.getElementById('micStatus').style.color = 'var(--danger)';
+                };
+
+                this.voiceRecognition.start();
+            }
+
+            stopVoiceRecognition() {
+                if (this.voiceRecognition && this.isListening) {
+                    this.voiceRecognition.stop();
+                    this.showStatus("⏹️ หยุดฟังเสียงแล้ว", 'warning');
+                }
+            }
+
+            showStatus(text, type = 'info') {
+                const statusEl = document.getElementById('status');
+                const className = `log-entry ${type}`;
+                statusEl.innerHTML = `<div class="${className}">${text}</div>`;
+                statusEl.scrollTop = statusEl.scrollHeight;
+            }
+
+            addToVoiceLog(text) {
+                const log = document.getElementById('voiceLog');
+                const entry = document.createElement('div');
+                entry.className = 'log-entry info';
+                entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+                log.appendChild(entry);
+                log.scrollTop = log.scrollHeight;
+            }
+
+            addToHistory(command, status, response = '') {
+                const historyEntry = {
+                    timestamp: new Date().toLocaleString(),
+                    command: command,
+                    status: status,
+                    response: response
+                };
+                this.commandHistory.unshift(historyEntry);
+                if (this.commandHistory.length > 50) this.commandHistory.pop();
+                this.updateHistoryDisplay();
+                this.saveCommandHistory();
+            }
+
+            updateHistoryDisplay() {
+                const historyEl = document.getElementById('commandHistory');
+                historyEl.innerHTML = '';
+                this.commandHistory.forEach(entry => {
+                    const div = document.createElement('div');
+                    div.className = `log-entry ${entry.status}`;
+                    div.innerHTML = `
+                        <strong>[${entry.timestamp}]</strong> ${entry.command}<br>
+                        <small>${entry.response || 'กำลังดำเนินการ...'}</small>
+                    `;
+                    historyEl.appendChild(div);
+                });
+            }
+
+            clearHistory() {
+                this.commandHistory = [];
+                this.updateHistoryDisplay();
+                localStorage.removeItem('trojanai_command_history');
+                this.showStatus("🧹 ล้างประวัติคำสั่งเรียบร้อยแล้ว", 'success');
+            }
+
+            loadCommandHistory() {
+                try {
+                    const saved = localStorage.getItem('trojanai_command_history');
+                    if (saved) {
+                        this.commandHistory = JSON.parse(saved);
+                        this.updateHistoryDisplay();
+                    }
+                } catch (e) {
+                    console.log('ไม่สามารถโหลดประวัติจาก localStorage');
+                }
+            }
+
+            saveCommandHistory() {
+                try {
+                    localStorage.setItem('trojanai_command_history', JSON.stringify(this.commandHistory));
+                } catch (e) {
+                    console.log('ไม่สามารถบันทึกประวัติลง localStorage');
+                }
+            }
+
+            createFloatingText(text) {
+                const ft = document.createElement('div');
+                ft.className = 'floatingText';
+                // place near center for better visibility on small screens
+                ft.style.left = (window.innerWidth * 0.5 + (Math.random() - 0.5) * 120) + 'px';
+                ft.style.top = (window.innerHeight * 0.45 + (Math.random() - 0.5) * 60) + 'px';
+                ft.innerText = text;
+                document.body.appendChild(ft);
+                setTimeout(() => { try { document.body.removeChild(ft); } catch(e){} }, 2000);
+            }
+
+            // Particles - responsive sizing handled on resize
+            initParticles() {
+                const canvas = document.getElementById('bgCanvas');
+                const ctx = canvas.getContext('2d');
+
+                const setCanvasSize = () => {
+                    const dpr = window.devicePixelRatio || 1;
+                    canvas.width = Math.max(1, window.innerWidth * dpr);
+                    canvas.height = Math.max(1, window.innerHeight * dpr);
+                    canvas.style.width = window.innerWidth + 'px';
+                    canvas.style.height = window.innerHeight + 'px';
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                };
+                setCanvasSize();
+                window.addEventListener('resize', setCanvasSize);
+
+                // initialize particles if empty
+                if (this.particles.length === 0) {
+                    const count = Math.min(220, Math.floor(window.innerWidth / 6)); // fewer on small screens
+                    for (let i = 0; i < count; i++) {
+                        this.particles.push({
+                            x: Math.random() * canvas.width,
+                            y: Math.random() * canvas.height,
+                            radius: Math.random() * 2 + 0.6,
+                            dx: (Math.random() - 0.5) * 0.8,
+                            dy: (Math.random() - 0.5) * 0.8
+                        });
+                    }
+                }
+
+                const drawParticles = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    this.particles.forEach(particle => {
+                        particle.x += particle.dx;
+                        particle.y += particle.dy;
+                        if (particle.x < 0 || particle.x > canvas.width) particle.dx *= -1;
+                        if (particle.y < 0 || particle.y > canvas.height) particle.dy *= -1;
+                        ctx.beginPath();
+                        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(0, 255, 255, 0.6)';
+                        ctx.fill();
+                    });
+                    requestAnimationFrame(drawParticles);
+                };
+                drawParticles();
+            }
+
+            // Audio system
+            async initAudioSystem() {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    this.analyser = this.audioContext.createAnalyser();
+                    this.analyser.fftSize = 256;
+                    const source = this.audioContext.createMediaStreamSource(stream);
+                    source.connect(this.analyser);
+                } catch (error) {
+                    console.warn('ไม่สามารถเข้าถึงไมโครโฟนได้:', error);
+                }
+            }
+
+            // Visualization: ensure canvas bitmap size matches CSS size for crisp rendering
+            startVisualization() {
+                const canvas = document.getElementById('vizCanvas');
+                const ctx = canvas.getContext('2d');
+                const face = document.getElementById('aiFace');
+
+                const resizeViz = () => {
+                    const dpr = window.devicePixelRatio || 1;
+                    const width = canvas.clientWidth || canvas.offsetWidth || 600;
+                    const height = parseInt(getComputedStyle(canvas).height) || 160;
+                    canvas.width = Math.max(1, Math.floor(width * dpr));
+                    canvas.height = Math.max(1, Math.floor(height * dpr));
+                    canvas.style.width = width + 'px';
+                    canvas.style.height = height + 'px';
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                };
+                resizeViz();
+                window.addEventListener('resize', resizeViz);
+
+                const draw = () => {
+                    // clear using logical pixels
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    const logicalWidth = canvas.width / (window.devicePixelRatio || 1);
+                    const logicalHeight = canvas.height / (window.devicePixelRatio || 1);
+
+                    if (this.analyser) {
+                        const bufferLength = this.analyser.frequencyBinCount;
+                        const dataArray = new Uint8Array(bufferLength);
+                        this.analyser.getByteFrequencyData(dataArray);
+
+                        // waveform bars
+                        const barWidth = Math.max(2, (logicalWidth / bufferLength) * 2.2);
+                        let x = 0;
+                        for (let i = 0; i < bufferLength; i++) {
+                            const barHeight = (dataArray[i] / 255) * (logicalHeight * 0.9);
+                            ctx.fillStyle = `rgba(${Math.min(255, Math.floor(barHeight)+80)}, 50, 255, 0.95)`;
+                            ctx.fillRect(x, logicalHeight - barHeight, barWidth, barHeight);
+                            x += barWidth + 1;
+                        }
+
+                        // average for level
+                        const average = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
+                        const audioLevel = (average / 255) * 100;
+                        document.getElementById('audioLevel').textContent = Math.round(audioLevel) + '%';
+                        document.getElementById('audioLevelBar').style.width = audioLevel + '%';
+
+                        // animate face scale
+                        const scale = 1 + (audioLevel / 220);
+                        face.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                    } else {
+                        // placeholder grid when no mic access
+                        ctx.fillStyle = 'rgba(255,255,255,0.02)';
+                        for (let i = 0; i < logicalWidth; i += 12) {
+                            ctx.fillRect(i, logicalHeight - 2, 6, 2);
+                        }
+                    }
+
+                    // draw small dashboard graphs when in dashboard tab
+                    if (this.currentTab === 'dashboard') {
+                        const cpu = parseInt(document.getElementById('cpuUsage').textContent) || 0;
+                        const ram = parseInt(document.getElementById('ramUsage').textContent) || 0;
+                        const disk = parseInt(document.getElementById('diskUsage').textContent) || 0;
+
+                        ctx.fillStyle = 'rgba(0,255,255,0.18)';
+                        ctx.fillRect(24, logicalHeight - cpu - 6, 28, cpu);
+                        ctx.fillStyle = 'rgba(0,255,128,0.16)';
+                        ctx.fillRect(68, logicalHeight - ram - 6, 28, ram);
+                        ctx.fillStyle = 'rgba(255,0,255,0.16)';
+                        ctx.fillRect(112, logicalHeight - disk - 6, 28, disk);
+                    }
+
+                    requestAnimationFrame(draw);
+                };
+
+                draw();
+            }
+
+            startDashboardUpdates() {
+                this.updateDashboard();
+                setInterval(() => this.updateDashboard(), 1000);
+            }
+
+            updateDashboard() {
+                const now = new Date();
+                document.getElementById('serverTime').textContent = now.toLocaleTimeString('th-TH');
+
+                const uptime = Math.floor((Date.now() - this.systemStartTime) / 1000);
+                document.getElementById('uptime').textContent = this.formatUptime(uptime);
+
+                const cpu = Math.floor(Math.random() * 40 + 10);
+                const ram = Math.floor(Math.random() * 50 + 20);
+                const disk = Math.floor(Math.random() * 60 + 15);
+
+                document.getElementById('cpuUsage').textContent = cpu + '%';
+                document.getElementById('ramUsage').textContent = ram + '%';
+                document.getElementById('diskUsage').textContent = disk + '%';
+
+                document.getElementById('cpuBar').style.width = cpu + '%';
+                document.getElementById('ramBar').style.width = ram + '%';
+                document.getElementById('diskBar').style.width = disk + '%';
+
+                // update visualizer quickly
+                this.updateSystemVisualizer(cpu, ram, disk);
+            }
+
+            formatUptime(seconds) {
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const secs = seconds % 60;
+                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            updateSystemVisualizer(cpu, ram, disk) {
+                // we simply trigger a redraw by toggling currentTab if necessary;
+                // drawing handled in startVisualization's animation loop.
+            }
+        }
+
+        // ================== เริ่มต้นระบบ ==================
+        const trojanAI = new TrojanAIApp();
+
+        // Global functions bound to HTML
+        function showTab(tabId) { trojanAI.showTab(tabId); }
+        function sendCommand(command) { trojanAI.sendCommand(command); }
+        function sendVoice() { trojanAI.sendVoice(); }
+        function startVoiceRecognition() { trojanAI.startVoiceRecognition(); }
+        function stopVoiceRecognition() { trojanAI.stopVoiceRecognition(); }
+        function clearHistory() { trojanAI.clearHistory(); }
+
+        window.addEventListener('load', () => { trojanAI.init(); });
+        window.addEventListener('beforeunload', () => { trojanAI.saveCommandHistory(); });
+
+        // ป้องกันการซูมด้วยการดับเบิลแทป
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        console.log('🧠 TrojanAI Interface loaded successfully!');
+    </script>
+</body>
+</html>
