@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MEGA — พระเครื่อง</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📸 MEGA Albums</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <button class="dark-toggle" id="darkToggle">🌙 / ☀️</button>
-
-  <div class="container">
-    <h2>อัลบั้มจาก MEGA</h2>
-
-    <div class="search-area">
-      <input id="searchInput" placeholder="ค้นหาใน MEGA...">
-      <button id="voiceBtn" class="mic-btn">🎤</button>
-    </div>
-
-    <div id="megaGallery" class="gallery"></div>
-
-    <div style="text-align:center; margin-top:18px;">
-      <a href="index.html" class="button">← กลับสู่หน้าแรก</a>
-    </div>
+<button class="dark-toggle" onclick="toggleDarkMode()">🌙/☀️</button>
+<div class="container">
+  <h1>MEGA Albums</h1>
+  <input type="text" id="searchInput" placeholder="ค้นหาอัลบั้ม...">
+  <div id="albumsContainer" class="albums-grid"></div>
+  <div class="links">
+    <a href="index.html">หน้าแรก</a>
+    <a href="google.html">Google Photos Albums</a>
+    <a href="icedrive.html">IceDrive Albums</a>
+    <a href="admin.html">Admin Panel</a>
   </div>
-
-  <script src="js/mega.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/admin.js"></script>
+</div>
+<button id="voiceSearchBtn">🎤 ค้นหาด้วยเสียง</button>
+<script src="js/mega.js"></script>
+<script>
+function toggleDarkMode(){
+  document.body.classList.toggle('light');
+  localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+}
+window.onload = () => { if(localStorage.getItem('theme')==='light') document.body.classList.add('light'); };
+</script>
 </body>
 </html>
