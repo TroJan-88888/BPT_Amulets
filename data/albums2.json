@@ -1,11 +1,7 @@
 [
-  {
-    "name": "พระปรุหนังหลวงพ่อเนียม",
-    "url": "https://mega.nz/folder/bK4yjIaA#iLp1GuhiwRVVpPshQ1YpXQ"
-  },
-  {
-    "name": "พระปิดตาหลวงพ่อเนียม",
-    "url": "https://mega.nz/folder/aTp1VYZC#N3tGa1QYQO7YDpLXTtGnAQ",
-    "audio": "assets/audio/niam_pad.mp3"
-  }
+  {"name": "หลวงปู่โต๊ะ", "url": "https://photos.google.com/album/AF1QipP0BUwovbU656qePul-l7GWxko9CDp7xIDoxiaV", "audio":"audio/1.mp3"},
+  {"name": "หลวงปู่ภู", "url": "https://photos.google.com/album/AF1QipNcoTKCIiTusQa1KMCPI9_S85tsdN5ilQBTsEWV", "audio":"audio/2.mp3"},
+  {"name": "พระเปิม", "url": "https://photos.google.com/album/AF1QipOdZ4u7rcacOi7YcoTQOvqfcK664YdY8vCMohkN", "audio":"audio/3.mp3"},
+  {"name": "พระรอด", "url": "https://photos.google.com/album/AF1QipPkQivwJ2aBjkSuaMu4_saZ1HTpW7nvtM1s4SIQ", "audio":"audio/4.mp3"},
+  {"name": "พระคงทรงพระบางบัวกลม", "url": "https://photos.google.com/album/AF1QipPijiOT8o4gq4tolZ7fqChYnqH9n0KenH50FsLr", "audio":"audio/5.mp3"}
 ]
