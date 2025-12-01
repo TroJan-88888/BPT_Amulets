@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — เพิ่มอัลบั้ม</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <button class="dark-toggle" id="darkToggle">🌙 / ☀️</button>
+
+  <div class="container">
+    <h2>Admin — เพิ่ม / แก้ไขอัลบั้ม</h2>
+
+    <div class="admin-form">
+      <label>ชื่ออัลบั้ม</label>
+      <input id="albumName" placeholder="เช่น พระรอด ลำพูน">
+
+      <label>ลิงก์อัลบั้ม (Google Photos/MEGA/IceDrive)</label>
+      <input id="albumUrl" placeholder="https://...">
+
+      <label>ไฟล์ JSON เป้าหมาย</label>
+      <select id="targetJson">
+        <option value="data/albums1.json">albums1.json</option>
+        <option value="data/albums2.json">albums2.json</option>
+        <option value="data/albums3.json">albums3.json</option>
+        <option value="data/albums4.json">albums4.json</option>
+        <option value="data/albums5.json">albums5.json</option>
+      </select>
+
+      <label>พาธไฟล์เสียง (ถ้ามี)</label>
+      <input id="audioPath" placeholder="เช่น assets/audio/chiangmai.mp3 (ไม่จำเป็น)">
+
+      <hr>
+
+      <label>GitHub Username</label>
+      <input id="ghUser" placeholder="username">
+
+      <label>Repository</label>
+      <input id="ghRepo" placeholder="repo-name">
+
+      <label>Branch</label>
+      <input id="ghBranch" value="main">
+
+      <label>Personal Access Token (เก็บเป็นความลับ)</label>
+      <input id="ghToken" type="password" placeholder="ghp_xxx...">
+
+      <button id="saveBtn" class="button">บันทึกขึ้น GitHub</button>
+      <p id="status" class="status"></p>
+    </div>
+
+    <div style="text-align:center; margin-top:12px;">
+      <a href="index.html" class="button">← กลับสู่หน้าแรก</a>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
