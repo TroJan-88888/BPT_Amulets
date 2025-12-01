@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>พระเครื่องแดนสยาม — หน้าแรก</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📸 BPT Amulets</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <button class="dark-toggle" id="darkToggle">🌙 / ☀️</button>
+<button class="dark-toggle" onclick="toggleDarkMode()">🌙/☀️</button>
 
-  <div class="container">
-    <h1>พระเครื่องแดนสยาม</h1>
-    <p class="lead">รวมอัลบั้มจาก Google Photos, MEGA และ IceDrive — ค้นหาได้ทั้งพิมพ์และด้วยเสียง</p>
+<div class="container">
+  <h1>BPT Amulets - หน้าแรก</h1>
+  <input type="text" id="searchInput" placeholder="ค้นหาอัลบั้ม...">
+  <div id="albumsContainer" class="albums-grid"></div>
 
-    <div class="links">
-      <a href="google.html" class="button">Google Photos</a>
-      <a href="mega.html" class="button">MEGA</a>
-      <a href="icedrive.html" class="button">IceDrive</a>
-      <a href="admin.html" class="button">Admin (เพิ่ม/แก้ไข)</a>
-    </div>
-
-    <div class="search-area">
-      <input id="searchInput" placeholder="ค้นหาอัลบั้ม (พิมพ์หรือกดไมค์)...">
-      <button id="voiceBtn" class="mic-btn">🎤</button>
-    </div>
-
-    <h2>ผลการค้นหา / รายการอัลบั้มทั้งหมด</h2>
-    <div id="results" class="gallery"></div>
+  <div class="links">
+    <a href="google.html">Google Photos Albums</a>
+    <a href="mega.html">MEGA Albums</a>
+    <a href="icedrive.html">IceDrive Albums</a>
+    <a href="admin.html">Admin Panel</a>
   </div>
+</div>
 
-  <script src="js/app.js"></script>
-  <script src="js/google.js"></script>
-  <script src="js/mega.js"></script>
-  <script src="js/icedrive.js"></script>
-  <script src="js/admin.js"></script>
+<button id="voiceSearchBtn">🎤 ค้นหาด้วยเสียง</button>
+
+<script src="js/app.js"></script>
+<script>
+function toggleDarkMode(){
+  document.body.classList.toggle('light');
+  localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+}
+window.onload = () => {
+  if(localStorage.getItem('theme')==='light') document.body.classList.add('light');
+};
+</script>
 </body>
 </html>
