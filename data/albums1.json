@@ -1,11 +1,7 @@
 [
-  {
-    "name": "เชียงใหม่",
-    "url": "https://photos.google.com/album/AF1QipNikZnyPDpsuIh56ncLi4B72AQA1nQIQd_644MW",
-    "audio": "assets/audio/chiangmai.mp3"
-  },
-  {
-    "name": "หลวงปู่ทวดวัดช้างให้",
-    "url": "https://photos.google.com/album/AF1QipOILbe6R2qZrL020jEJtaCEcAQZeb9VQLIXEK5j"
-  }
+  {"name": "เชียงใหม่", "url": "https://photos.google.com/album/AF1QipNikZnyPDpsuIh56ncLi4B72AQA1nQIQd_644MW", "audio":"audio/1.mp3"},
+  {"name": "หลวงปู่ทวดวัดช้างให้", "url": "https://photos.google.com/album/AF1QipOILbe6R2qZrL020jEJtaCEcAQZeb9VQLIXEK5j", "audio":"audio/2.mp3"},
+  {"name": "พิจิตร", "url": "https://photos.google.com/album/AF1QipNH3Vrx0EA1Ocl5Ei_KkDvTd6QyIgFferd1KFhN", "audio":"audio/3.mp3"},
+  {"name": "วัดปากน้ำ", "url": "https://photos.google.com/album/AF1QipO51mqsIk-prnPjhlLa4W2ssbJ-qQ0cbI8A26zq", "audio":"audio/4.mp3"},
+  {"name": "พระซุ้มกอ", "url": "https://photos.google.com/album/AF1QipOBuKpH4mLha1hdreXa9vq5edcqQhmRVoYyCioP", "audio":"audio/5.mp3"}
 ]
