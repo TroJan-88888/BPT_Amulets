@@ -1,83 +1,99 @@
-// admin.js — upload updated JSON to GitHub using REST API
-// WARNING: Token must be kept private. This client-side approach requires user's personal token.
+// --- ฟังก์ชัน fuzzy search ---
+function fuzzyMatch(text, keyword) {
+  const a = text.toLowerCase();
+  const b = keyword.toLowerCase();
+  return a.includes(b) || levenshtein(a,b) <= 2;
+}
 
-async function getFileSha(user, repo, path, branch='main', token){
-  const url = `https://api.github.com/repos/${user}/${repo}/contents/${path}?ref=${branch}`;
-  const res = await fetch(url, { headers: token ? { Authorization: `token ${token}` } : {} });
-  if(res.ok){
-    const j = await res.json();
-    return j.sha;
+function levenshtein(a,b){
+  const tmp = [];
+  for(let i=0;i<=b.length;i++) tmp[i] = [i];
+  for(let j=0;j<=a.length;j++) tmp[0][j]=j;
+  for(let i=1;i<=b.length;i++){
+    tmp[i] = [];
+    for(let j=1;j<=a.length;j++){
+      tmp[i][j] = b[i-1]===a[j-1]? tmp[i-1][j-1] : Math.min(tmp[i-1][j-1]+1, tmp[i][j-1]+1, tmp[i-1][j]+1);
+    }
   }
-  return null;
+  return tmp[b.length][a.length];
 }
 
-async function putFileToGitHub(path, contentBase64, message, user, repo, branch='main', token){
-  const url = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
-  const sha = await getFileSha(user, repo, path, branch, token);
-  const body = { message, content: contentBase64, branch };
-  if(sha) body.sha = sha;
-  const res = await fetch(url, {
-    method: 'PUT',
-    headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-  return res.json();
-}
-
-function encodeToBase64(obj){
-  return btoa(unescape(encodeURIComponent(JSON.stringify(obj, null, 2))));
-}
-
-document.addEventListener('DOMContentLoaded', ()=> {
-  const saveBtn = document.getElementById('saveBtn');
-  const status = document.getElementById('status');
-
-  if(!saveBtn) return;
-
-  saveBtn.addEventListener('click', async () => {
-    const name = document.getElementById('albumName').value.trim();
-    const url = document.getElementById('albumUrl').value.trim();
-    const target = document.getElementById('targetJson').value;
-    const audio = document.getElementById('audioPath').value.trim();
-    const user = document.getElementById('ghUser').value.trim();
-    const repo = document.getElementById('ghRepo').value.trim();
-    const branch = document.getElementById('ghBranch').value.trim() || 'main';
-    const token = document.getElementById('ghToken').value.trim();
-
-    if(!name || !url || !user || !repo || !token){
-      status.textContent = 'กรุณากรอกข้อมูลให้ครบ (name, url, user, repo, token)';
-      return;
-    }
-
-    status.textContent = 'กำลังดึงไฟล์ JSON เดิม...';
+// --- โหลด JSON ทุกไฟล์ ---
+async function loadAllAlbums(){
+  const files = [1,2,3,4,5];
+  let all = [];
+  for(const f of files){
     try{
-      const rawUrl = `https://raw.githubusercontent.com/${user}/${repo}/${branch}/${target}`;
-      let existing = [];
-      const r = await fetch(rawUrl);
-      if(r.ok){
-        existing = await r.json();
-      } else {
-        existing = [];
-      }
+      const res = await fetch(`data/albums${f}.json`);
+      const js = await res.json();
+      all = all.concat(js);
+    } catch(e){ console.warn(`ไม่สามารถโหลด albums${f}.json`,e); }
+  }
+  return all;
+}
 
-      const item = { name, url };
-      if(audio) item.audio = audio;
-      existing.push(item);
-
-      const contentBase64 = encodeToBase64(existing);
-      status.textContent = 'กำลังอัปเดตไปยัง GitHub...';
-
-      const resp = await putFileToGitHub(target, contentBase64, `Add album ${name}`, user, repo, branch, token);
-
-      if(resp.content){
-        status.textContent = 'อัปเดตสำเร็จแล้ว ✓';
-      } else {
-        status.textContent = 'เกิดข้อผิดพลาด: ' + (resp.message || 'unknown');
-      }
-
-    }catch(err){
-      console.error(err);
-      status.textContent = 'อัปเดตไม่สำเร็จ: ' + (err.message || err);
-    }
+// --- render albums + audio ---
+function renderAlbums(albums){
+  const container = document.getElementById('albumsContainer');
+  if(!container) return;
+  container.innerHTML = '';
+  if(albums.length===0){ container.innerHTML='<p>ไม่พบอัลบั้ม</p>'; return; }
+  albums.forEach(a=>{
+    const div = document.createElement('div');
+    div.className='album-card';
+    let audioHTML = a.audio? `<audio controls src="${a.audio}"></audio>` : '';
+    div.innerHTML=`
+      <a href="${a.url}" target="_blank"><div class="album-name">${a.name}</div></a>
+      ${audioHTML}
+    `;
+    container.appendChild(div);
   });
-});
+}
+
+// --- Setup Search + Voice Search ---
+async function setupSearch(){
+  const input = document.querySelector('#searchInput');
+  const albums = await loadAllAlbums();
+  renderAlbums(albums);
+
+  if(input){
+    input.addEventListener('input', ()=>{
+      const kw = input.value.trim();
+      if(!kw){ renderAlbums(albums); return; }
+      const filtered = albums.filter(item=>fuzzyMatch(item.name,kw));
+      renderAlbums(filtered);
+    });
+  }
+
+  const voiceBtn = document.getElementById('voiceSearchBtn');
+  if(voiceBtn && 'webkitSpeechRecognition' in window){
+    const recognition = new webkitSpeechRecognition();
+    recognition.lang = 'th-TH';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    voiceBtn.addEventListener('click', ()=>{
+      recognition.start();
+      voiceBtn.textContent = '🎤 กำลังฟัง...';
+    });
+
+    recognition.onresult = (event)=>{
+      const transcript = event.results[0][0].transcript;
+      if(input){
+        input.value = transcript;
+        const filtered = albums.filter(item=>fuzzyMatch(item.name, transcript));
+        renderAlbums(filtered);
+      }
+      voiceBtn.textContent = '🎤 ค้นหาด้วยเสียง';
+    };
+
+    recognition.onerror = ()=>{
+      voiceBtn.textContent = '🎤 ค้นหาด้วยเสียง';
+    };
+  } else if(voiceBtn){
+    voiceBtn.disabled = true;
+    voiceBtn.textContent = 'ไมโครโฟนไม่รองรับ';
+  }
+}
+
+setupSearch();
