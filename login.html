@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<main class="container">
+  <h2>เข้าสู่ระบบ Admin</h2>
+  <form id="loginForm">
+    <input type="password" id="password" placeholder="รหัสผ่าน Admin">
+    <button type="submit" class="button">เข้าสู่ระบบ</button>
+  </form>
+  <p id="loginMsg"></p>
+</main>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const pwd = document.getElementById('password').value;
+  if(pwd === 'admin123'){
+    localStorage.setItem('adminLogged', 'true');
+    window.location.href = 'admin.html';
+  } else {
+    document.getElementById('loginMsg').textContent = 'รหัสผ่านไม่ถูกต้อง';
+  }
+});
+</script>
+</body>
+</html>
