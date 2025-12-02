@@ -3,27 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Google Albums</title>
+<title>อัลบั้ม Google</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="assets/img/favicon.png">
+<link rel="icon" href="assets/img/icon.png">
 </head>
 <body>
-<header>
-  <img src="assets/img/logo.svg" alt="Logo" class="logo">
-  <button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
-</header>
 
-<main class="container">
-  <h2>อัลบั้ม Google Drive</h2>
-  <input type="text" id="searchInput" placeholder="🔍 ค้นหาอัลบั้ม..." oninput="searchAlbums()">
-  <div class="gallery" id="gallery"></div>
+<!-- Loading -->
+<div id="loading">กำลังโหลด...</div>
+
+<!-- Toggle Dark/Light -->
+<button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
+
+<div class="container">
+  <h2>อัลบั้ม พระลึกลับแดนสยาม (Google)</h2>
+  
+  <!-- Search -->
+  <input type="text" id="searchInput" placeholder="ค้นหาอัลบั้ม..." oninput="searchAlbums()">
+  
+  <!-- Gallery -->
+  <div id="gallery" class="gallery"></div>
+  
   <a href="index.html" class="button">← กลับสู่หน้าแรก</a>
-</main>
+</div>
 
+<!-- Scripts -->
 <script src="assets/js/utils.js"></script>
+<script src="assets/js/loading.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/search.js"></script>
 <script src="assets/js/voice.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>loadAlbums('data/albums1.json'));
+</script>
+
 </body>
 </html>
