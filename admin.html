@@ -3,46 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📸 BPT Amulets - Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<title>Admin Panel</title>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<button class="dark-toggle" onclick="toggleDarkMode()">🌙/☀️</button>
-<div class="container">
-  <h1>Admin Panel</h1>
-  <input type="text" id="albumName" placeholder="ชื่ออัลบั้ม">
-  <input type="url" id="albumUrl" placeholder="ลิงก์อัลบั้ม">
-  <input type="url" id="albumAudio" placeholder="ลิงก์ไฟล์เสียง (mp3)">
-  <select id="targetJson">
-    <option value="data/albums1.json">albums1.json</option>
-    <option value="data/albums2.json">albums2.json</option>
-    <option value="data/albums3.json">albums3.json</option>
-    <option value="data/albums4.json">albums4.json</option>
-    <option value="data/albums5.json">albums5.json</option>
-  </select>
-  <input type="text" id="ghUser" placeholder="GitHub Username">
-  <input type="text" id="ghRepo" placeholder="Repository Name">
-  <input type="text" id="ghBranch" placeholder="Branch (default: main)">
-  <input type="password" id="ghToken" placeholder="Personal Access Token">
-  <button id="saveBtn">บันทึกขึ้น GitHub</button>
-  <p id="status"></p>
-
-  <div class="links">
-    <a href="index.html">หน้าแรก</a>
-    <a href="google.html">Google Photos Albums</a>
-    <a href="mega.html">MEGA Albums</a>
-    <a href="icedrive.html">IceDrive Albums</a>
+<main class="container">
+  <h2>Admin Panel</h2>
+  <button onclick="logout()" class="button">Logout</button>
+  <div id="albumManager">
+    <h3>จัดการอัลบั้ม</h3>
+    <form id="addForm">
+      <input type="text" id="albumName" placeholder="ชื่ออัลบั้ม" required>
+      <input type="url" id="albumURL" placeholder="URL อัลบั้ม" required>
+      <button type="submit" class="button">เพิ่มอัลบั้ม</button>
+    </form>
+    <ul id="albumList"></ul>
   </div>
-</div>
-<button id="voiceSearchBtn">🎤 ค้นหาด้วยเสียง</button>
-<script src="js/admin.js"></script>
+</main>
+
 <script>
-function toggleDarkMode(){
-  document.body.classList.toggle('light');
-  localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+if(localStorage.getItem('adminLogged') !== 'true'){
+  window.location.href = 'login.html';
 }
-window.onload = () => { if(localStorage.getItem('theme')==='light') document.body.classList.add('light'); };
+
+let albums = JSON.parse(localStorage.getItem('albums')) || [];
+
+const albumList = document.getElementById('albumList');
+const addForm = document.getElementById('addForm');
+
+function renderAlbums(){
+  albumList.innerHTML = '';
+  albums.forEach((a,i)=>{
+    const li = document.createElement('li');
+    li.innerHTML = `${a.name} - <a href="${a.url}" target="_blank">เปิด</a>
+    <button onclick="deleteAlbum(${i})">ลบ</button>`;
+    albumList.appendChild(li);
+  });
+}
+function deleteAlbum(i){
+  if(confirm('คุณต้องการลบอัลบั้มนี้?')){
+    albums.splice(i,1);
+    localStorage.setItem('albums', JSON.stringify(albums));
+    renderAlbums();
+  }
+}
+addForm.addEventListener('submit', e=>{
+  e.preventDefault();
+  const name = document.getElementById('albumName').value;
+  const url = document.getElementById('albumURL').value;
+  albums.push({name,url});
+  localStorage.setItem('albums', JSON.stringify(albums));
+  addForm.reset();
+  renderAlbums();
+});
+renderAlbums();
+
+function logout(){
+  localStorage.removeItem('adminLogged');
+  window.location.href = 'login.html';
+}
 </script>
 </body>
 </html>
