@@ -3,37 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📸 BPT Amulets</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<title>พระลึกลับแดนสยาม</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/img/favicon.png">
 </head>
 <body>
-<button class="dark-toggle" onclick="toggleDarkMode()">🌙/☀️</button>
-
-<div class="container">
-  <h1>BPT Amulets - หน้าแรก</h1>
-  <input type="text" id="searchInput" placeholder="ค้นหาอัลบั้ม...">
-  <div id="albumsContainer" class="albums-grid"></div>
-
-  <div class="links">
-    <a href="google.html">Google Photos Albums</a>
-    <a href="mega.html">MEGA Albums</a>
-    <a href="icedrive.html">IceDrive Albums</a>
-    <a href="admin.html">Admin Panel</a>
-  </div>
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+  <p>กำลังโหลด...</p>
 </div>
 
-<button id="voiceSearchBtn">🎤 ค้นหาด้วยเสียง</button>
+<header>
+  <img src="assets/img/logo.svg" alt="Logo" class="logo">
+  <button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
+</header>
 
-<script src="js/app.js"></script>
-<script>
-function toggleDarkMode(){
-  document.body.classList.toggle('light');
-  localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
-}
-window.onload = () => {
-  if(localStorage.getItem('theme')==='light') document.body.classList.add('light');
-};
-</script>
+<main class="container">
+  <h1>พระลึกลับแดนสยาม</h1>
+  <input type="text" id="searchInput" placeholder="🔍 ค้นหาอัลบั้ม..." oninput="searchAlbums()">
+  
+  <div class="gallery" id="gallery"></div>
+</main>
+
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/loading.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/voice.js"></script>
 </body>
 </html>
