@@ -1,35 +1,54 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>พระลึกลับแดนสยาม</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="icon" href="assets/img/icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>พระเครื่องแดนสยาม - Gallery</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- Loading -->
-<div id="loading">กำลังโหลด...</div>
+    <header>
+        <h1>พระเครื่องแดนสยาม</h1>
 
-<!-- Toggle Dark/Light -->
-<button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
+        <div class="top-controls">
+            <input type="text" id="searchBox" placeholder="ค้นหาพระเครื่อง...">
+            <button id="voiceSearchBtn">🎤</button>
+            <button id="toggleTheme">🌙</button>
+        </div>
 
-<div class="container">
-  <h1>พระลึกลับแดนสยาม</h1>
-  <p>เลือกชมอัลบั้มพระเครื่องเพื่อการศึกษาและให้ความรู้</p>
-  <div class="button-group">
-    <a href="google.html" class="button">รูปพระชุดที่1</a>
-    <a href="mega.html" class="button">รูปพระชุดที่2</a>
-    <a href="icedrive.html" class="button">รูปพระชุดที่3</a>
-    <a href="login.html" class="button">Admin Login</a>
-  </div>
-</div>
+        <nav class="albums">
+            <button class="album-tab active" data-album="1">อัลบั้ม 1</button>
+            <button class="album-tab" data-album="2">อัลบั้ม 2</button>
+            <button class="album-tab" data-album="3">อัลบั้ม 3</button>
+            <button class="album-tab" data-album="4">อัลบั้ม 4</button>
+            <button class="album-tab" data-album="5">อัลบั้ม 5</button>
+        </nav>
+    </header>
 
-<!-- Scripts -->
-<script src="assets/js/utils.js"></script>
-<script src="assets/js/loading.js"></script>
+    <main>
+        <div id="gallery" class="gallery"></div>
+
+        <div id="imageModal" class="modal">
+            <span class="close">×</span>
+            <img id="modalImg" src="">
+            <div id="modalCaption"></div>
+            <button id="btnSpeak" class="speak-btn">🔊 ฟังเสียงบรรยาย</button>
+        </div>
+    </main>
+
+    <!-- JS -->
+    <script src="js/searchEngine.js"></script>
+    <script src="js/app.js"></script>
 
 </body>
 </html>
