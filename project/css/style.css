@@ -1,0 +1,312 @@
+/* ===============================
+   GLOBAL THEME
+================================ */
+:root {
+    --bg: #f5f5f5;
+    --text: #111;
+    --card-bg: #ffffffd0;
+    --primary: #8B4513;
+    --accent: #d69d61;
+    --shadow: rgba(0,0,0,0.12);
+}
+
+/* Dark Mode */
+body.dark {
+    --bg: #111;
+    --text: #eee;
+    --card-bg: #1d1d1dd0;
+    --primary: #d2a76a;
+    --accent: #795a35;
+    --shadow: rgba(255,255,255,0.15);
+}
+
+/* ===============================
+   GLOBAL
+================================ */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Sarabun', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    background-image: url('../assets/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Blur overlay */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+/* ===============================
+   HEADER
+================================ */
+header {
+    padding: 20px;
+    text-align: center;
+    background: var(--card-bg);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 10px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--primary);
+}
+
+.top-controls {
+    margin-top: 15px;
+}
+
+.top-controls input {
+    width: 70%;
+    max-width: 450px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--accent);
+    background: #fff9;
+    backdrop-filter: blur(4px);
+    color: var(--text);
+    font-size: 16px;
+}
+
+.top-controls button {
+    padding: 10px 14px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    background: var(--primary);
+    color: #fff;
+}
+
+/* ===============================
+   ALBUM TABS
+================================ */
+.albums {
+    margin-top: 25px;
+}
+
+.album-tab {
+    padding: 10px 18px;
+    border: none;
+    margin: 4px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    background: var(--card-bg);
+    color: var(--text);
+    box-shadow: 0 2px 6px var(--shadow);
+}
+
+.album-tab.active {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* ===============================
+   GALLERY GRID
+================================ */
+.gallery {
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+.gallery .item {
+    background: var(--card-bg);
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px var(--shadow);
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+.gallery .item:hover {
+    transform: scale(1.05);
+}
+
+.gallery img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Title */
+.gallery .title {
+    text-align: center;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+/* ===============================
+   MODAL VIEWER
+================================ */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.modal img {
+    width: 90%;
+    max-width: 550px;
+    border-radius: 10px;
+}
+
+.modal .close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 40px;
+    cursor: pointer;
+    color: #fff;
+}
+
+#modalCaption {
+    margin-top: 15px;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+}
+
+.speak-btn {
+    margin-top: 12px;
+    padding: 10px 20px;
+    border: none;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* ===============================
+   INPUT BOX VIEWERS (Google/Mega/Icedrive)
+================================ */
+.input-box {
+    margin: 25px auto;
+    text-align: center;
+}
+
+.input-box input {
+    width: 70%;
+    max-width: 400px;
+    padding: 12px;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+}
+
+.input-box button {
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    margin-left: 8px;
+    cursor: pointer;
+    background: var(--primary);
+    color: #fff;
+}
+
+/* Viewer Box */
+#viewerBox img {
+    margin: 20px auto;
+    max-width: 95%;
+    display: block;
+    border-radius: 12px;
+}
+
+/* ===============================
+   ADMIN PANEL
+================================ */
+.admin-box {
+    max-width: 900px;
+    margin: 30px auto;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px var(--shadow);
+}
+
+.admin-box h2 {
+    margin: 0 0 15px;
+    color: var(--primary);
+}
+
+.admin-login,
+.admin-editor {
+    display: none;
+}
+
+.admin-login input,
+.admin-editor input,
+.admin-editor textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--accent);
+    margin-bottom: 15px;
+}
+
+.button-primary {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.drag-area {
+    border: 2px dashed var(--accent);
+    padding: 40px;
+    text-align: center;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.drag-area:hover {
+    background: #ffffff20;
+}
+
+.preview-img {
+    display: block;
+    margin: 15px auto;
+    max-width: 200px;
+    border-radius: 10px;
+}
+
+/* ===============================
+   MOBILE RESPONSIVE
+================================ */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 22px;
+    }
+
+    .top-controls input {
+        width: 65%;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+}
