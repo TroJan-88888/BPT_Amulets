@@ -1,33 +1,26 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>อัลบั้ม MEGA</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="icon" href="assets/img/icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ดูภาพจาก MEGA</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div id="loading">กำลังโหลด...</div>
-<button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
+<header>
+    <h1>เปิดภาพจาก MEGA</h1>
+</header>
 
-<div class="container">
-  <h2>อัลบั้ม พระลึกลับแดนสยาม (MEGA)</h2>
-  <input type="text" id="searchInput" placeholder="ค้นหาอัลบั้ม..." oninput="searchAlbums()">
-  <div id="gallery" class="gallery"></div>
-  <a href="index.html" class="button">← กลับสู่หน้าแรก</a>
-</div>
+<main>
+    <div class="input-box">
+        <input type="text" id="megaUrl" placeholder="วางลิงก์ MEGA ที่นี่">
+        <button onclick="loadMega()">เปิดภาพ</button>
+    </div>
 
-<script src="assets/js/utils.js"></script>
-<script src="assets/js/loading.js"></script>
-<script src="assets/js/app.js"></script>
-<script src="assets/js/search.js"></script>
-<script src="assets/js/voice.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',()=>loadAlbums('data/albums3.json'));
-</script>
+    <div id="viewerBox"></div>
+</main>
 
+<script src="js/mega.js"></script>
 </body>
 </html>
